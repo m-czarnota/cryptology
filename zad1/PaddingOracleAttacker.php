@@ -17,14 +17,15 @@ class PaddingOracleAttacker
 
     public function attack(): void
     {
-        $plainText = "Kryptologia semestr zimowy 2021/2022, znowy stacjonarnie w 119 WI2 :) :)";
+//        $plainText = "Kryptologia semestr zimowy 2021/2022, znowy stacjonarnie w 119 WI2 :) :)";
+        $plainText = readline("Enter your text: ");
         echo "Plain text: $plainText\n";
 
         $this->aes->setEncryptionKey("moj_key");
         $this->aes->encrypt($plainText);
 
-        echo $this->decryptByPaddingOracleAttack() . "\n";
-        echo "time of operation: {$this->getExecutionTime()}";
+        echo "\nDecrypted text:\n{$this->decryptByPaddingOracleAttack()}\n\n";
+        echo "time of operation: {$this->getExecutionTime()} micro seconds\n";
     }
 
     protected function decryptByPaddingOracleAttack(?string $text = null): string
@@ -32,6 +33,7 @@ class PaddingOracleAttacker
         $text = $text ?? $this->aes->getEncryptedData();
         $textBlocks = str_split($text, EncryptorAES::BLOCK_SIZE);
         $textBlocksCount = count($textBlocks);
+        echo "Count of blocks: $textBlocksCount\n";
 
         $decryptedText = '';
         $this->startTimer();
@@ -53,8 +55,13 @@ class PaddingOracleAttacker
                     $executionByte = EncryptorAES::BLOCK_SIZE - $byte;
                     $blockText[$executionByte] = chr($i);
 
-                    if ($this->aes->decrypt($blockText . $textBlocks[$textBlocksCount - $textBlockNumber]) === null) {
-                        continue;
+                    try {
+                        $decryptedData = $this->aes->decrypt($blockText . $textBlocks[$textBlocksCount - $textBlockNumber]);
+                    } catch (\Throwable $exception) {
+                        $message = $exception->getMessage();
+                        if ($message === "Invalid padding") {
+                            continue;
+                        }
                     }
 
                     $paddingXor = $byte ^ $i;
@@ -90,10 +97,14 @@ class PaddingOracleAttacker
     }
 
     /**
+     * @param bool $convertToSeconds
      * @return float|null
      */
-    public function getExecutionTime(): ?float
+    public function getExecutionTime(bool $convertToSeconds = false): ?float
     {
-        return $this->executionTime;
+        if (!$convertToSeconds) {
+            return $this->executionTime;
+        }
+        return $convertToSeconds / 1000 / 1000;
     }
 }

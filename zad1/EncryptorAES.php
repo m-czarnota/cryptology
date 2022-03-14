@@ -28,8 +28,12 @@ class EncryptorAES
 
     public function decrypt(?string $encrypted = null): ?string
     {
-        $data = openssl_decrypt($encrypted ?? $this->encryptedData, $this->cipher, $this->encryptionKey, OPENSSL_RAW_DATA, $this->iv);
-        return $data === false ? null : $data;
+        $data = openssl_decrypt($encrypted ?? $this->encryptedData, $this->cipher, $this->encryptionKey, OPENSSL_RAW_DATA);
+        if ($data === false) {
+            throw new \Exception('Invalid padding');
+        }
+
+        return $data;
     }
 
     /**

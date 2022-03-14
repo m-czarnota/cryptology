@@ -1,0 +1,22 @@
+pomiary czasu:
+1647265514.9489 micro seconds
+1647265517.2536 micro seconds
+1647265518.95 micro seconds
+
+1) kiedy jest możliwy odczyt pierwszego bloku?
+kiedy znamy wektor inicjalizacyjny
+
+2) jaki trzeba błąd implementacji popełnić, aby atak był możliwy?
+kiedy aplikacja pozwala na podanie swojego własnego szyfrogramu oraz poszukuje błędy paddingu
+
+3) w jakich środowiskach zaimplementowano ten atak?
+asp .net
+
+4) czy atak dotyczy tylko algorytów aes?
+działa także dla algorytmów CBC. długość bloków musi być stała oraz wyświetlana musi być informacja o nieprawidłowym paddingu
+
+5) ile razy maksymalnie należy odpytać wyrocznię w celu odczytania jednego bloku?
+16 (długość bloku) * 256 (możliwe wartości bajtu) = 4096
+
+6) czy w przypadku zastosowania innych schematów paddingu atak będzie działał?
+Zastosowanie innych schematów nie uchroni przed tym atakiem. nadal będzie możliwość odpytania wyroczni odnośnie prawidłowego paddingu
