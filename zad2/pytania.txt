@@ -1,0 +1,24 @@
+3.2
+1)
+2)
+Ilość bitów	| 2048	        | 3072	        | 4096	      |   7680
+Czas	    | 180,964 ms	| 355,6104 ms	| 902,4284 ms |	5162,9422 ms
+
+3) Przykładowa liczba 4096 bit
+   781571537027707019897719853309740235946232946565471286484856994845038561629841096217910303267346265446204388201751602291662671495810610278861719369092332544455344793870025281801362714290476714986256595250447300461961463251224957437505356195287539710504708722590092975361553372360453516873426371956667813368718211808702525884197728097615563087460170944054920645276499212623462388417538391382934766628937690338050078941970737670150736037347464521559496865305231635395878123083087213465754955850768547099298264491540618754134079021628712393839487874653162995994606280662009092941466863839820353843823906555187753462867581837601960692584237442935046080264858256741472585253994964097627007202154160808741590836601184701643868324370719803431278829350741014823716626539488769240273828365480673167412565607982938873565060274668900113479219654805517367574873825592671201686437902970984802722922981182370475444552594980650266070856702321708131780315767914587487432433342034550392213382307407901043495712893569125230193144962941137112799356232058406051049648713443043285645970317877122768244697492075184353435903820792172458598783039718144993542062535903172722763638230095696592797601231227026967832119412887458338914696821549368798233663370457
+
+4) By wyznaczyć klucz publiczny najpierw trzeba wylosować duże liczby pierwsze p i q, a następnie n mnożąc p i q. Następnie wykorzystując funkcję Eulera wyznacza się φ, wzór φ = (p-1)(q-1). Wybieramy liczbę względnie pierwszą e, gdzie największy wspólny dzielnik z φ wynosi 1. Liczba e to klucz publiczny.
+
+4.2
+1) Czas wykonania skrótu wraz z jego weryfikacją jest mniejszy, np. dla 2048 bitów czas wykonania zmniejszył się z 180,964 ms do 71,245 ms.
+2) Dodanie funkcji skrótu zwiększa bezpieczeństwo szyfrowania, co bardzo komplikuje złamanie algorytmu szyfrującego, atak na taki algorytm jest bardziej złożony obliczeniowo, co za tym idzie też czasowo.
+
+4.3
+1)
+2)
+3) zalecana jest minimalna liczba pierwsza 65537, aby wyeliminować możliwość szybkiej faktoryzacji. e nie może być stałe
+4)
+5) RSA-PSS to schemat sygnatury probabilistycznej z załącznikiem.  W PKCS#1.5 ta sama wiadomość i klucz prywatny generuje identyczną wartość podpisu za każdym razem. W przeciwieństwie do PKCS#1.5 to PSS jest losowy i za każdym razem generuje inną wartość podpisu, chyba, że zostanie użyta sól o zerowej długości. Sól są to dane losowane dodawane podczas obliczania funkcji skrótu. Rzeczywistą długość soli można określić na podstawie wartości podpisu
+6)
+7) Jednym z ataków jest atak Coppersmitha, który charakteryzuje się tym, że jest atakiem na krótki wykładnik publiczny. Coppersmith do tego ataku wykorzystuje algorytm oparty na wielomianu stopnia d. Jest też znany atak Franklina-Reitera na powiązane wiadomości. Metoda ta zadziała tylko w przypadku wykładnika publicznego mającego wartość 3. Pozwala na złamanie dwóch szyfrogramów wysłanych do tej samej osoby. Istnieją jeszcze takie ataki jak: atak czasowy Kochera, atak czasowy na mnożenie Montgomery’ego i pamięć CACHE instrukcji, atak z generacją błędu podczas CRT.
+8) ponieważ zmniejsza to bezpieczeństwo algorytmu szyfrującego RSA. Należy unikać sytuacji, gdy schemat dla wiadomości i klucza prywatnego generuje tą samą wartość za każdym razem
