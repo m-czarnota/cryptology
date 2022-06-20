@@ -1,0 +1,8 @@
+3.
+Region | Cienie | Wartoœæ progowa | Czas
+Nr 1   |   6    |       3         | 0.6406 ms
+Nr 2   |   4    |       3         | 0.06 ms
+Nr 3   |   10   |       6         | 0.578 ms
+
+a) niemo¿liwe jest odtworzenie sekretu bez znajomoœci wymaganej liczby cieni
+b) Wykorzystuj¹c liczby typu int zmniejsza siê bezpieczeñstwo, poniewa¿ przy ma³ych wartoœciach sekretu istnieje mo¿liwoœæ ³atwiejszego trafienia w t¹ wartoœæ podczas losowania liczb.
