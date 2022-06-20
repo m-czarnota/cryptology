@@ -1,5 +1,5 @@
-3.2
-1)
+﻿3.2
+1) można zaszyfrować wiadomość, która jest mniejsza niż n
 2)
 Ilość bitów	| 2048	        | 3072	        | 4096	      |   7680
 Czas	    | 180,964 ms	| 355,6104 ms	| 902,4284 ms |	5162,9422 ms
@@ -14,11 +14,11 @@ Czas	    | 180,964 ms	| 355,6104 ms	| 902,4284 ms |	5162,9422 ms
 2) Dodanie funkcji skrótu zwiększa bezpieczeństwo szyfrowania, co bardzo komplikuje złamanie algorytmu szyfrującego, atak na taki algorytm jest bardziej złożony obliczeniowo, co za tym idzie też czasowo.
 
 4.3
-1)
-2)
+1) polega na  posiadaniu dwóch kluczy publicznego i prywatnego, oznacza to, że klucz publiczny jest jawny, a klucz prywatny jest chroniony.
+2) możliwość faktoryzacji
 3) zalecana jest minimalna liczba pierwsza 65537, aby wyeliminować możliwość szybkiej faktoryzacji. e nie może być stałe
-4)
+4) musi to być wielkość modułu 2048 bitów. oznacza to, że wielokość modułu to wielkość klucza w bitach / 8, czyli 2048 / 8 = 256.
 5) RSA-PSS to schemat sygnatury probabilistycznej z załącznikiem.  W PKCS#1.5 ta sama wiadomość i klucz prywatny generuje identyczną wartość podpisu za każdym razem. W przeciwieństwie do PKCS#1.5 to PSS jest losowy i za każdym razem generuje inną wartość podpisu, chyba, że zostanie użyta sól o zerowej długości. Sól są to dane losowane dodawane podczas obliczania funkcji skrótu. Rzeczywistą długość soli można określić na podstawie wartości podpisu
-6)
+6) dla tego samego n istanieje szansa wygenerowania tych samych wartości, bezpieczniejsze jest wykorzystaanie nowej liczny do szyfrowania
 7) Jednym z ataków jest atak Coppersmitha, który charakteryzuje się tym, że jest atakiem na krótki wykładnik publiczny. Coppersmith do tego ataku wykorzystuje algorytm oparty na wielomianu stopnia d. Jest też znany atak Franklina-Reitera na powiązane wiadomości. Metoda ta zadziała tylko w przypadku wykładnika publicznego mającego wartość 3. Pozwala na złamanie dwóch szyfrogramów wysłanych do tej samej osoby. Istnieją jeszcze takie ataki jak: atak czasowy Kochera, atak czasowy na mnożenie Montgomery’ego i pamięć CACHE instrukcji, atak z generacją błędu podczas CRT.
 8) ponieważ zmniejsza to bezpieczeństwo algorytmu szyfrującego RSA. Należy unikać sytuacji, gdy schemat dla wiadomości i klucza prywatnego generuje tą samą wartość za każdym razem
